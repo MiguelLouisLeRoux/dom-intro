@@ -43,11 +43,19 @@ function totalPhoneBill() {
     billTotalElement.innerHTML = grandTotal;
     
     if (grandTotal <= 20) {
-        document.querySelector(".total").style.color = "black";
+
+        document.querySelector(".total").classList.remove("danger");
+        document.querySelector(".total").classList.remove("warning");
+
      } else if (grandTotal > 20 && grandTotal < 30) {
-        document.querySelector(".total").style.color = "orange"; 
+        
+        document.querySelector(".total").classList.remove("danger");
+        document.querySelector(".total").classList.add("warning");
+
      } else if (grandTotal > 30) {
-        document.querySelector(".total").style.color = "crimson";
+        
+        document.querySelector(".total").classList.remove("warning");
+        document.querySelector(".total").classList.add("danger");
      }
 }   
 

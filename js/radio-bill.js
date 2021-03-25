@@ -32,14 +32,6 @@ function radioBill() {
  
     }
 
-    // if (radio.value == 'call') {
-
-    //     callArrRadio.push(radio.value);
-    // } else if (radio.value == 'sms') {
-
-    //     smsArrRadio.push(radio.value);
-    // }
-
     var newCallArr = callArrRadio.length;
     var newSmsArr = smsArrRadio.length;
 
@@ -57,14 +49,11 @@ function radioBill() {
     // return grandTotal;
     gTotal2.innerHTML = gTotal;
     
-    if (grandTotal < 30) {
-        document.querySelector(".orange").style.color = "black";
-
-     } else if (gTotal >= 30 && gTotal < 50) {
-        document.querySelector(".orange").style.color = "orange"; 
-     } else if (gTotal >= 50) {
-        document.querySelector(".orange").style.color = "crimson";
-     }
+    if (gTotal >= 30 && gTotal < 50) {
+        document.querySelector(".orange").classList.add("warning"); 
+    } else if (gTotal >= 50) {
+        document.querySelector(".orange").classList.add("danger");
+    }
 }
 
 addButton2.addEventListener('click', radioBill);

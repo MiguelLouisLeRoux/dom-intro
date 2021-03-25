@@ -16,20 +16,6 @@ var smsArr = [];
 function PhoneBill() {
     var input = textIn.value;
     var trimIn = input.trim();
-    // var arr = billStringVal.split(",");
-    // var callArr = [];
-    // var smsArr = [];
-    
-    // for (var i = 0; i < arr.length; i++) {
-    //   var newArr = arr[i];
-    //   var split = newArr.trim();
-    //   if (split.startsWith("call")) {
-    //     callArr.push(split);
-    //   } else if (split.startsWith("sms")) {
-    //     smsArr.push(split);
-    //   }
-      
-    // }
 
     if (trimIn === "call") {
         callArr.push(trimIn);
@@ -54,14 +40,12 @@ function PhoneBill() {
     
     grandTotal.innerHTML = gTotal;
     
-    if (gTotal < 30) {
-        document.querySelector(".red").style.color = "black";
-
-     } else if (gTotal >= 30 && gTotal < 50) {
-        document.querySelector(".red").style.color = "orange"; 
-     } else if (gTotal >= 50) {
-        document.querySelector(".red").style.color = "crimson";
-     }
+    if (gTotal >= 30 && gTotal < 50) {
+        document.querySelector(".red").classList.add("warning"); 
+    } else if (gTotal >= 50) {
+        document.querySelector(".red").classList.remove("warning");
+        document.querySelector(".red").classList.add("danger");
+    }
 }
 
 addBtn.addEventListener('click', PhoneBill);
