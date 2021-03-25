@@ -4,6 +4,7 @@ var callTot3 = document.querySelector(".callTotalSettings"); // get refences to 
 var smsTot3 = document.querySelector(".smsTotalSettings");
 var gTotal3 = document.querySelector(".totalSettings");
 var setAdd = document.querySelector(".button-primaryy"); //get a reference to the add button
+var totSetCol = document.querySelector(".totalSettingss").value;
 
 var callCostSet = document.querySelector(".callCostSetting");
 var smsCostSet = document.querySelector(".smsCostSetting");
@@ -28,79 +29,94 @@ var upSetBtn = document.querySelector(".updateSettings");
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen.
 // * check the value thresholds and display the total value in the right color.
-var switch1 = false;
+// var switch1 = false;
 
 var warnSetting = 0;
 var critSetting = 0;
 
-var callArrSet = [];
-var smsArrSet = [];
+var callTotall = 0;
+var smsTotall = 0;
+var gTotall = 0;
+
 
 var callSetNo = 0;
 var smsSetNo = 0;
+
+
 
 function settingsFunc() {
     callSetNo = callCostSet.value;
     smsSetNo = smsCostSet.value;
     warnSetting = warnSet.value;
     critSetting = critSet.value;
-    switch1 = true;
-    
+
+    if (gTotall < warnSetting) {
+        document.querySelector(".totalSettingss").classList.remove("warning");
+        document.querySelector(".totalSettingss").classList.remove("danger");
+    }
+    if (gTotall >= warnSetting && gTotall < critSetting) {
+        document.querySelector(".totalSettingss").classList.remove("danger");
+        document.querySelector(".totalSettingss").classList.add("warning");
+    } else if (gTotall >= critSetting) {
+        document.querySelector(".totalSettingss").classList.remove("warning");
+        document.querySelector(".totalSettingss").classList.add("danger");
+
+
+    }
+
 }
 
 upSetBtn.addEventListener('click', settingsFunc);
 
 
 
+
+
 function settingsBill() {
     var radio = document.querySelector("input[name='billItemTypeWithSettings']:checked");
-    
+
     if (radio) {
-        
-        if (radio.value === 'call' && switch1 === true) {
 
-            callArrSet.push(radio.value);
+        if (radio.value === 'call') {
+            if ((gTotall + parseFloat(callSetNo)) <= critSetting ) {
 
-        } else if (radio.value === 'sms' && switch1 === true) {
-    
-            smsArrSet.push(radio.value);
+              callTotall += parseFloat(callSetNo);
+              gTotall += parseFloat(callSetNo)
+            
+            }
+
+        } else if (radio.value === 'sms') {
+            if ((gTotall + parseFloat(smsSetNo)) <= critSetting ) {
+            smsTotall += parseFloat(smsSetNo);
+            gTotall += parseFloat(smsSetNo)
+            }
+
         }
- 
+
     }
 
-    var newCallArr = callArrSet.length;
-    var newSmsArr = smsArrSet.length;
-
-    //call total calculation
-    var callTotal = newCallArr * callSetNo;
-    callTot3.innerHTML = callTotal;
-
-    //sms total calculation
-    var smsTotal = newSmsArr * smsSetNo;
-    smsTot3.innerHTML = smsTotal
     
-    var total = newCallArr * callSetNo + newSmsArr * smsSetNo;
-    var gTotal = total.toFixed(2);
 
-    // return grandTotal;
-    gTotal3.innerHTML = gTotal;
+        if (gTotall < warnSetting) {
+            document.querySelector(".totalSettingss").classList.remove("warning");
+            document.querySelector(".totalSettingss").classList.remove("danger");
+        }
+        if (gTotall >= warnSetting && gTotall < critSetting) {
+            document.querySelector(".totalSettingss").classList.remove("danger");
+            document.querySelector(".totalSettingss").classList.add("warning");
+        } else if (gTotall >= critSetting) {
+            document.querySelector(".totalSettingss").classList.remove("warning");
+            document.querySelector(".totalSettingss").classList.add("danger");
+
+
+        }
+
+        callTot3.innerHTML = callTotall.toFixed(2);
+        smsTot3.innerHTML = smsTotall.toFixed(2);
+        gTotal3.innerHTML = gTotall.toFixed(2);
     
-    if (gTotal < warnSetting || gTotal < 10) {
-        document.querySelector(".totalSettingss").style.color = "black";
 
-    }
 
-    if (gTotal >= warnSetting && gTotal < critSetting) {
-        document.querySelector(".totalSettingss").style.color = "orange"; 
-    }
-
-    if (gTotal >= critSetting) {
-        document.querySelector(".totalSettingss").style.color = "crimson";
-        
-        
-        
-    }
-    
 }
 
 
