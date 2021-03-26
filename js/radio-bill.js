@@ -37,11 +37,11 @@ function radioBill() {
 
     //call total calculation
     var callTotal = newCallArr * 2.75;
-    callTotal2.innerHTML = callTotal;
+    callTotal2.innerHTML = callTotal.toFixed(2);
 
     //sms total calculation
     var smsTotal = newSmsArr * 0.75;
-    smsTotal2.innerHTML = smsTotal
+    smsTotal2.innerHTML = smsTotal.toFixed(2);
     
     var total = newCallArr * 2.75 + newSmsArr * 0.75;
     var gTotal = total.toFixed(2);

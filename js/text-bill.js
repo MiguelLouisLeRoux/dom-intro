@@ -28,11 +28,11 @@ function PhoneBill() {
 
     //call total calculation
     var callTotal = newCallArr * 2.75;
-    callTot.innerHTML = callTotal;
+    callTot.innerHTML = callTotal.toFixed(2);
 
     //sms total calculation
     var smsTotal = newSmsArr * 0.75;
-    smsTot.innerHTML = smsTotal
+    smsTot.innerHTML = smsTotal.toFixed(2);
     
     var total = newCallArr * 2.75 + newSmsArr * 0.75;
     var gTotal = total.toFixed(2);
