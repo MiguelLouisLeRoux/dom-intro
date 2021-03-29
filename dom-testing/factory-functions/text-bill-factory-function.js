@@ -38,7 +38,7 @@ function textBillFactory() {
     
 }
 
-console.log(textBillFactory().textGrandTotal().callTextTot);
+
 
 
 
