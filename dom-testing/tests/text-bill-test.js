@@ -34,4 +34,12 @@ describe('The Text Bill Function', function(){
         assert.equal(10.50, grandTextTotal.textGrandTotal().grandTextTot);
     });
 
+    it('Should be able to return 0 for no input', function(){
+        var grandTextTotal = textBillFactory();
+
+        grandTextTotal.callandSmsTotal('');
+
+        assert.equal(0, grandTextTotal.textGrandTotal().grandTextTot);
+    });
+
 });
