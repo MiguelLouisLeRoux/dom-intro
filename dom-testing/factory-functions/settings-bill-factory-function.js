@@ -48,42 +48,36 @@ function theSettingsBillFunction() {
     
     //Calculating Totals
     function callandSmsTotal(textInput) {
+        // if (!isCriticalOrMore()) {
+        //     if (textInput === "call") {
+                
+        //         theCallTotal += theCallCost;
+                
 
+        //     } else if (textInput === "sms") {
+                
+        //         theSmsTotal += theSmsCost;
+                        
+        //     }
+        // }
         
-        if (theSetTotal <= theCriticalVal) {
+        if (textInput === 'call') {
 
-            if (textInput === "call") {
-                
-                theCallTotal += theCallCost;
-                    
+            if ((setGrandTotal().grandSetTot + parseFloat(theCallCost)) <= theCriticalVal ) {
 
-            } else if (textInput === "sms") {
-                
-                theSmsTotal += theSmsCost;
-                     
-            }
+                theCallTotal += parseFloat(theCallCost);
+                theSetTotal += parseFloat(theCallCost);
             
+            }
+
+        } else if (textInput === 'sms') {
+            if ((setGrandTotal().grandSetTot + parseFloat(theSmsCost)) <= theCriticalVal ) {
+
+                theSmsTotal += parseFloat(theSmsCost);
+                theSetTotal += parseFloat(theSmsCost);
+            }
 
         }
-        
-
-        // if (textInput === 'call') {
-
-        //     if ((theSetTotal + parseFloat(theCallCost)) <= theCriticalVal ) {
-
-        //         theCallTotal += parseFloat(theCallCost);
-        //         theSetTotal += parseFloat(theCallCost);
-            
-        //     }
-
-        // } else if (textInput === 'sms') {
-        //     if ((theSetTotal + parseFloat(theSmsCost)) <= theCriticalVal ) {
-
-        //         theSmsTotal += parseFloat(theSmsCost);
-        //         theSetTotal += parseFloat(theSmsCost);
-        //     }
-
-        // }
         
     
     }
@@ -101,6 +95,20 @@ function theSettingsBillFunction() {
         }
         
     }
+
+    function isCriticalOrMore() {
+        return setGrandTotal().grandSetTot >= theCriticalVal;
+    }
+
+    function settingsLevels() {
+        if (setGrandTotal().grandSetTot >= theWarningVal && setGrandTotal().grandSetTot < theCriticalVal) {
+            return 'warning';
+        }
+
+        if (isCriticalOrMore) {
+            return 'critical';
+        }
+    }
     
 
 
@@ -113,7 +121,9 @@ function theSettingsBillFunction() {
              setWarningLevel,
              getWarningLevel,
              setCriticalLevel,
-             getCriticalLevel
+             getCriticalLevel,
+             settingsLevels,
+             isCriticalOrMore
             
     }
     

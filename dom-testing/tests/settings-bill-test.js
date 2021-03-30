@@ -55,8 +55,9 @@ describe('The Settings Bill Function', function(){
     describe ('Calculating Values', function () {
         it('Should be able to return total calls cost for three calls set at R5 each', function(){
             var setBillFunc = theSettingsBillFunction();
-
+            
             setBillFunc.setCallCost(5.00);
+            setBillFunc.setCriticalLevel(40);
 
             setBillFunc.callandSmsTotal('call');
             setBillFunc.callandSmsTotal('call');
@@ -69,6 +70,7 @@ describe('The Settings Bill Function', function(){
             var setBillFunc = theSettingsBillFunction();
 
             setBillFunc.setSmsCost(1.77);
+            setBillFunc.setCriticalLevel(40);
 
             setBillFunc.callandSmsTotal('sms');
             setBillFunc.callandSmsTotal('sms');
@@ -82,6 +84,7 @@ describe('The Settings Bill Function', function(){
 
             setBillFunc.setCallCost(5.00);
             setBillFunc.setSmsCost(0.85);
+            setBillFunc.setCriticalLevel(50);
 
             setBillFunc.callandSmsTotal('sms');
             setBillFunc.callandSmsTotal('sms');
@@ -97,12 +100,44 @@ describe('The Settings Bill Function', function(){
 
     describe ('Warning level and Critical level', function() {
 
-        it("Should return a class name of 'warning' if warninglevel is reached", function() {
+        it("Should return a class name of 'warning' if warning level is reached", function() {
             var setBillFunc = theSettingsBillFunction();
 
             setBillFunc.setCallCost(5.00);
-            setBillFunc.setSmsCost(0.85);
-            setBillFunc.setWarningLevel(30);
+            setBillFunc.setSmsCost(2.50);
+            setBillFunc.setWarningLevel(20);
+            setBillFunc.setCriticalLevel(30);
+
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+
+            setBillFunc.callandSmsTotal('sms');
+            setBillFunc.callandSmsTotal('sms');
+
+            assert.equal('warning', setBillFunc.settingsLevels());
+
+        });
+
+        it("Should return a class name of 'critical' if critical level is reached", function() {
+            var setBillFunc = theSettingsBillFunction();
+
+            setBillFunc.setCallCost(5.00);
+            setBillFunc.setSmsCost(2.50);
+            setBillFunc.setWarningLevel(20);
+            setBillFunc.setCriticalLevel(30);
+
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+            setBillFunc.callandSmsTotal('call');
+
+            setBillFunc.callandSmsTotal('sms');
+            setBillFunc.callandSmsTotal('sms');
+
+            assert.equal('critical', setBillFunc.settingsLevels());
 
         });
 
@@ -111,6 +146,7 @@ describe('The Settings Bill Function', function(){
 
             setBillFunc.setCallCost(5.00);
             setBillFunc.setSmsCost(1.00);
+            setBillFunc.setWarningLevel(10);
             setBillFunc.setCriticalLevel(20);
 
 
