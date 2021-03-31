@@ -31,24 +31,53 @@ var upSetBtn = document.querySelector(".updateSettings");
 // * check the value thresholds and display the total value in the right color.
 // var switch1 = false;
 
-var warnSetting = 0;
-var critSetting = 0;
+// var warnSetting = 0;
+// var critSetting = 0;
 
-var callTotall = 0;
-var smsTotall = 0;
-var gTotall = 0;
-
-
-var callSetNo = 0;
-var smsSetNo = 0;
+// var callTotall = 0;
+// var smsTotall = 0;
+// var gTotall = 0;
 
 
+// var callSetNo = 0;
+// var smsSetNo = 0;
 
+//Setting and getting values from factory function
+var settingss = theSettingsBillFunction();
+// var settingCall = settingss.setCallCost();
+// var gettingCall = settingss.getCallCost();
+// var settingSms = settingss.setSmsCost();
+// var gettingSms = settingss.getSmsCost();
+// var settingWarning = settingss.setWarningLevel();
+// var gettingWarning = settingss.getWarningLevel();
+// var settingCritical = settingss.setCriticalLevel();
+// var gettingCritical = settingss.getCriticalLevel();
+
+//Calculating values from factory function
+// var calculatingTot = settingss.callandSmsTotal(radio.value);
+// var calculatingGrand = settingss.setGrandTotal();
+
+//Warning and Critical Levels
+// var crit = settingss.isCriticalOrMore();
+// var warnOrCrit = settingss.settingsLevels();
+
+//Setting Values Function
 function settingsFunc() {
     callSetNo = callCostSet.value;
     smsSetNo = smsCostSet.value;
     warnSetting = warnSet.value;
     critSetting = critSet.value;
+
+    settingss.setCallCost(callCostSet.value);
+    settingss.getCallCost();
+    settingss.setSmsCost(smsCostSet.value);
+    settingss.getSmsCost();
+    settingss.setWarningLevel(warnSet.value);
+    settingss.getWarningLevel();
+    settingss.setCriticalLevel(critSet.value);
+    settingss.getCriticalLevel();
+    console.log(settingss.getCallCost());
+
 
     if (gTotall < warnSetting) {
         document.querySelector(".totalSettingss").classList.remove("warning");
@@ -71,27 +100,29 @@ upSetBtn.addEventListener('click', settingsFunc);
 
 
 
-
+//Calculating Values Function
 function settingsBill() {
     var radio = document.querySelector("input[name='billItemTypeWithSettings']:checked");
 
     if (radio) {
 
-        if (radio.value === 'call') {
-            if ((gTotall + parseFloat(callSetNo)) <= critSetting ) {
+        // if (radio.value === 'call') {
+        //     if ((gTotall + parseFloat(callSetNo)) <= critSetting ) {
 
-              callTotall += parseFloat(callSetNo);
-              gTotall += parseFloat(callSetNo)
+        //       callTotall += parseFloat(callSetNo);
+        //       gTotall += parseFloat(callSetNo)
             
-            }
+        //     }
 
-        } else if (radio.value === 'sms') {
-            if ((gTotall + parseFloat(smsSetNo)) <= critSetting ) {
-            smsTotall += parseFloat(smsSetNo);
-            gTotall += parseFloat(smsSetNo)
-            }
+        // } else if (radio.value === 'sms') {
+        //     if ((gTotall + parseFloat(smsSetNo)) <= critSetting ) {
+        //     smsTotall += parseFloat(smsSetNo);
+        //     gTotall += parseFloat(smsSetNo)
+        //     }
 
-        }
+        // }
+
+        settingss.callandSmsTotal(radio.value);
 
     }
 

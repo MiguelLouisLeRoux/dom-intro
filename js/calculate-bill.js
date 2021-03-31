@@ -1,7 +1,10 @@
 var calculateBtnn = document.querySelector(".calculateBtn")//get a reference to the calculate button
 var billTotalElement = document.querySelector(".billTotal");//get a reference to the billTotal element
 var billStr = document.querySelector(".billString");//get a reference to the billString
-// var billIn = billStr.value;
+var stringInt = billStr.value;
+
+
+
 
 // function val() {
 //     var n = document.querySelector(".billString").value;
@@ -38,26 +41,33 @@ function totalPhoneBill() {
     
     var total = newCallArr * 2.75 + newSmsArr * 0.75;
     var grandTotal = total.toFixed(2);
-    // return grandTotal;
+    
     
     billTotalElement.innerHTML = grandTotal;
+
+    
     
     if (grandTotal <= 20) {
+      
 
         document.querySelector(".total").classList.remove("danger");
         document.querySelector(".total").classList.remove("warning");
 
      } else if (grandTotal > 20 && grandTotal < 30) {
+    
         
         document.querySelector(".total").classList.remove("danger");
         document.querySelector(".total").classList.add("warning");
 
      } else if (grandTotal > 30) {
+    
         
         document.querySelector(".total").classList.remove("warning");
         document.querySelector(".total").classList.add("danger");
      }
 }   
+
+
 
 
 

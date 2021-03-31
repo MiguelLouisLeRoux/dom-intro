@@ -48,18 +48,6 @@ function theSettingsBillFunction() {
     
     //Calculating Totals
     function callandSmsTotal(textInput) {
-        // if (!isCriticalOrMore()) {
-        //     if (textInput === "call") {
-                
-        //         theCallTotal += theCallCost;
-                
-
-        //     } else if (textInput === "sms") {
-                
-        //         theSmsTotal += theSmsCost;
-                        
-        //     }
-        // }
         
         if (textInput === 'call') {
 
