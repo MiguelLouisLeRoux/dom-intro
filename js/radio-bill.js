@@ -13,45 +13,23 @@ var gTotal2 = document.querySelector(".totalTwo");
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-var callArrRadio = [];
-var smsArrRadio = [];
+//Referencing Radio Button Factory Fuction
+var radioFactFunc = radioButtonBillFunction();
 
 function radioBill() {
     var radio = document.querySelector("input[name='billItemType']:checked");
 
     if (radio) {
-        var radVal = radio.value;
-        
-        if (radio.value === 'call') {
-
-            callArrRadio.push(radio.value);
-        } else if (radio.value === 'sms') {
-    
-            smsArrRadio.push(radio.value);
-        }
- 
+        radioFactFunc.callandSmsTotal(radio.value);
     }
 
-    var newCallArr = callArrRadio.length;
-    var newSmsArr = smsArrRadio.length;
-
-    //call total calculation
-    var callTotal = newCallArr * 2.75;
-    callTotal2.innerHTML = callTotal.toFixed(2);
-
-    //sms total calculation
-    var smsTotal = newSmsArr * 0.75;
-    smsTotal2.innerHTML = smsTotal.toFixed(2);
+    callTotal2.innerHTML = radioFactFunc.radGrandTotal().callRadTot.toFixed(2);
+    smsTotal2.innerHTML = radioFactFunc.radGrandTotal().smsRadTot.toFixed(2);
+    gTotal2.innerHTML = radioFactFunc.radGrandTotal().grandRadTot.toFixed(2);
     
-    var total = newCallArr * 2.75 + newSmsArr * 0.75;
-    var gTotal = total.toFixed(2);
-
-    // return grandTotal;
-    gTotal2.innerHTML = gTotal;
-    
-    if (gTotal >= 30 && gTotal < 50) {
+    if (radioFactFunc.radGrandTotal().grandRadTot >= 30 && radioFactFunc.radGrandTotal().grandRadTot < 50) {
         document.querySelector(".orange").classList.add("warning"); 
-    } else if (gTotal >= 50) {
+    } else if (radioFactFunc.radGrandTotal().grandRadTot >= 50) {
         document.querySelector(".orange").classList.add("danger");
     }
 }

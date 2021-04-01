@@ -10,39 +10,22 @@ var grandTotal = document.querySelector(".totalOne");
 // * add the appropriate value to the running total
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
-var callArr = [];
-var smsArr = [];
+
+//Referencing Text Bill Factory Function
+var textFactFunc = textBillFactory();
 
 function PhoneBill() {
-    var input = textIn.value;
-    var trimIn = input.trim();
 
-    if (trimIn === "call") {
-        callArr.push(trimIn);
-    } else if (trimIn === "sms") {
-        smsArr.push(trimIn);
-    }
+    textFactFunc.callandSmsTotal(textIn.value);
 
-    var newCallArr = callArr.length;
-    var newSmsArr = smsArr.length;
+    callTot.innerHTML = textFactFunc.textGrandTotal().callTextTot.toFixed(2);
+    smsTot.innerHTML = textFactFunc.textGrandTotal().smsTextTot.toFixed(2);
+    grandTotal.innerHTML = textFactFunc.textGrandTotal().grandTextTot.toFixed(2);
 
-    //call total calculation
-    var callTotal = newCallArr * 2.75;
-    callTot.innerHTML = callTotal.toFixed(2);
-
-    //sms total calculation
-    var smsTotal = newSmsArr * 0.75;
-    smsTot.innerHTML = smsTotal.toFixed(2);
     
-    var total = newCallArr * 2.75 + newSmsArr * 0.75;
-    var gTotal = total.toFixed(2);
-    // return grandTotal;
-    
-    grandTotal.innerHTML = gTotal;
-    
-    if (gTotal >= 30 && gTotal < 50) {
+    if (textFactFunc.textGrandTotal().grandTextTot >= 30 && textFactFunc.textGrandTotal().grandTextTot < 50) {
         document.querySelector(".red").classList.add("warning"); 
-    } else if (gTotal >= 50) {
+    } else if (textFactFunc.textGrandTotal().grandTextTot >= 50) {
         document.querySelector(".red").classList.remove("warning");
         document.querySelector(".red").classList.add("danger");
     }
