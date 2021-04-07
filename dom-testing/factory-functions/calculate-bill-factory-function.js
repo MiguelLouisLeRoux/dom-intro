@@ -1,7 +1,9 @@
 function calculateBill(stringInt) {
     var theTotal = 0;
 
+
     var splitString = stringInt.split(",");
+
 
     for (var i = 0; i < splitString.length; i++) {
         var itt1 = splitString[i];
