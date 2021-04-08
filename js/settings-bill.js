@@ -45,20 +45,8 @@ function settingsFunc() {
     settingss.setCriticalLevel(critSet.value);
     settingss.getCriticalLevel();
 
-
-    if (settingss.setGrandTotal().grandSetTot < settingss.getWarningLevel() && settingss.setGrandTotal().grandSetTot < settingss.getCriticalLevel()) {
-        document.querySelector(".totalSettingss").classList.remove("warning");
-        document.querySelector(".totalSettingss").classList.remove("danger");
-    } else if (settingss.settingsLevels()) {
-        if (settingss.setGrandTotal().grandSetTot >= settingss.getWarningLevel() && settingss.setGrandTotal().grandSetTot < settingss.getCriticalLevel()) {
-            document.querySelector(".totalSettingss").classList.remove("danger");
-            document.querySelector(".totalSettingss").classList.add("warning");
-        } else if (settingss.isCriticalOrMore()) {
-            document.querySelector(".totalSettingss").classList.remove("warning");
-            document.querySelector(".totalSettingss").classList.add("danger");
-        }
-    } 
-
+    settingss.changingLevels();
+    
 }
 
 upSetBtn.addEventListener('click', settingsFunc);
@@ -70,20 +58,10 @@ function settingsBill() {
 
     if (radio) {
         settingss.callandSmsTotal(radio.value);
+        
     }
 
-    if (settingss.setGrandTotal().grandSetTot < settingss.getWarningLevel() && settingss.setGrandTotal().grandSetTot < settingss.getCriticalLevel()) {
-        document.querySelector(".totalSettingss").classList.remove("warning");
-        document.querySelector(".totalSettingss").classList.remove("danger");
-    } else if (settingss.settingsLevels()) {
-        if (settingss.setGrandTotal().grandSetTot >= settingss.getWarningLevel() && settingss.setGrandTotal().grandSetTot < settingss.getCriticalLevel()) {
-            document.querySelector(".totalSettingss").classList.remove("danger");
-            document.querySelector(".totalSettingss").classList.add("warning");
-        } else if (settingss.isCriticalOrMore()) {
-            document.querySelector(".totalSettingss").classList.remove("warning");
-            document.querySelector(".totalSettingss").classList.add("danger");
-        }
-    } 
+    settingss.changingLevels();
     
     callTot3.innerHTML = settingss.setGrandTotal().callSetTot.toFixed(2);
     smsTot3.innerHTML = settingss.setGrandTotal().smsSetTot.toFixed(2);

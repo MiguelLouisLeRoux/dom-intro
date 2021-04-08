@@ -89,6 +89,7 @@ function theSettingsBillFunction() {
     }
 
     function settingsLevels() {
+        
         if (setGrandTotal().grandSetTot >= theWarningVal && setGrandTotal().grandSetTot < theCriticalVal) {
             return 'warning';
         }
@@ -96,6 +97,22 @@ function theSettingsBillFunction() {
         if (isCriticalOrMore) {
             return 'critical';
         }
+    }
+
+    function changingLevels() {
+        
+        if (settingss.setGrandTotal().grandSetTot < settingss.getWarningLevel() && settingss.setGrandTotal().grandSetTot < settingss.getCriticalLevel()) {
+            document.querySelector(".totalSettingss").classList.remove("warning");
+            document.querySelector(".totalSettingss").classList.remove("danger");
+        } else if (settingss.settingsLevels()) {
+            if (settingss.setGrandTotal().grandSetTot >= settingss.getWarningLevel() && settingss.setGrandTotal().grandSetTot < settingss.getCriticalLevel()) {
+                document.querySelector(".totalSettingss").classList.remove("danger");
+                document.querySelector(".totalSettingss").classList.add("warning");
+            } else if (settingss.isCriticalOrMore()) {
+                document.querySelector(".totalSettingss").classList.remove("warning");
+                document.querySelector(".totalSettingss").classList.add("danger");
+            }
+        } 
     }
     
 
@@ -111,7 +128,8 @@ function theSettingsBillFunction() {
              setCriticalLevel,
              getCriticalLevel,
              settingsLevels,
-             isCriticalOrMore
+             isCriticalOrMore,
+             changingLevels
             
     }
     
