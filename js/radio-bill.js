@@ -13,25 +13,43 @@ var gTotal2 = document.querySelector(".totalTwo");
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-//Referencing Radio Button Factory Fuction
-var radioFactFunc = radioButtonBillFunction();
+document.addEventListener('DOMContentLoaded', function(){
 
-function radioBill() {
-    var radio = document.querySelector("input[name='billItemType']:checked");
+    var templateSource = document.querySelector(".userTemplate").innerHTML;
+    var userTemplate = Handlebars.compile(templateSource);
 
-    if (radio) {
-        radioFactFunc.callandSmsTotal(radio.value);
+    var radioFactFunc = radioButtonBillFunction();
+
+    function radioBill() {
+        var radio = document.querySelector("input[name='billItemType']:checked");
+
+        if (radio) {
+            radioFactFunc.callandSmsTotal(radio.value);
+        }
+
+        var callTotalData = userTemplate({
+            call : radioFactFunc.radGrandTotal().callRadTot.toFixed(2),
+        });
+
+        var smsTotalData = userTemplate({
+            sms : radioFactFunc.radGrandTotal().smsRadTot.toFixed(2),
+        });
+
+        var totalData = userTemplate({
+            count : radioFactFunc.radGrandTotal().grandRadTot.toFixed(2),
+        });
+        
+        callTotal2.innerHTML = callTotalData;
+        smsTotal2.innerHTML = smsTotalData;
+        gTotal2.innerHTML = totalData;
+
+        if (radioFactFunc.radGrandTotal().grandRadTot >= 30 && radioFactFunc.radGrandTotal().grandRadTot < 50) {
+            document.querySelector(".orange").classList.add("warning"); 
+        } else if (radioFactFunc.radGrandTotal().grandRadTot >= 50) {
+            document.querySelector(".orange").classList.add("danger");
+        }
     }
 
-    callTotal2.innerHTML = radioFactFunc.radGrandTotal().callRadTot.toFixed(2);
-    smsTotal2.innerHTML = radioFactFunc.radGrandTotal().smsRadTot.toFixed(2);
-    gTotal2.innerHTML = radioFactFunc.radGrandTotal().grandRadTot.toFixed(2);
-    
-    if (radioFactFunc.radGrandTotal().grandRadTot >= 30 && radioFactFunc.radGrandTotal().grandRadTot < 50) {
-        document.querySelector(".orange").classList.add("warning"); 
-    } else if (radioFactFunc.radGrandTotal().grandRadTot >= 50) {
-        document.querySelector(".orange").classList.add("danger");
-    }
-}
+    addButton2.addEventListener('click', radioBill);
 
-addButton2.addEventListener('click', radioBill);
+})

@@ -2,9 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Phone Bill widgets</title>
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <script type="text/x-template" class="userTemplate">
+      {{call}}
+      {{sms}}
+      {{count}}
+    </script>
+
   </head>
   <body>
     <div class="container">
@@ -92,7 +100,7 @@
           </div>
             <div class="six columns">
               <h5>Totals</h5>
-              <table>
+              <table class="tableData">
                 <tr>
                   <td>Call total</td>
                   <td>R<span class="callTotalOne">0.00</span></td>

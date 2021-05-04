@@ -12,23 +12,42 @@ var grandTotal = document.querySelector(".totalOne");
 // * display the latest total on the screen
 
 //Referencing Text Bill Factory Function
-var textFactFunc = textBillFactory();
+document.addEventListener('DOMContentLoaded', function(){
+    var templateSource = document.querySelector(".userTemplate").innerHTML;
+    var userTemplate = Handlebars.compile(templateSource);
 
-function PhoneBill() {
+    var textFactFunc = textBillFactory();
 
-    textFactFunc.callandSmsTotal(textIn.value);
+    function PhoneBill() {
 
-    callTot.innerHTML = textFactFunc.textGrandTotal().callTextTot.toFixed(2);
-    smsTot.innerHTML = textFactFunc.textGrandTotal().smsTextTot.toFixed(2);
-    grandTotal.innerHTML = textFactFunc.textGrandTotal().grandTextTot.toFixed(2);
+        textFactFunc.callandSmsTotal(textIn.value);
 
-    
-    if (textFactFunc.textGrandTotal().grandTextTot >= 30 && textFactFunc.textGrandTotal().grandTextTot < 50) {
-        document.querySelector(".red").classList.add("warning"); 
-    } else if (textFactFunc.textGrandTotal().grandTextTot >= 50) {
-        document.querySelector(".red").classList.remove("warning");
-        document.querySelector(".red").classList.add("danger");
+        var callTotalData = userTemplate({
+            call : textFactFunc.textGrandTotal().callTextTot.toFixed(2),
+        });
+
+        var smsTotalData = userTemplate({
+            sms : textFactFunc.textGrandTotal().smsTextTot.toFixed(2),
+        });
+
+        var totalData = userTemplate({
+            count : textFactFunc.textGrandTotal().grandTextTot.toFixed(2),
+        });
+
+        callTot.innerHTML = callTotalData;
+        smsTot.innerHTML = smsTotalData;
+        grandTotal.innerHTML = totalData;
+
+        
+        if (textFactFunc.textGrandTotal().grandTextTot >= 30 && textFactFunc.textGrandTotal().grandTextTot < 50) {
+            document.querySelector(".red").classList.add("warning"); 
+        } else if (textFactFunc.textGrandTotal().grandTextTot >= 50) {
+            document.querySelector(".red").classList.remove("warning");
+            document.querySelector(".red").classList.add("danger");
+        }
+
+        
     }
-}
 
-addBtn.addEventListener('click', PhoneBill);
+    addBtn.addEventListener('click', PhoneBill);
+})
